@@ -7,24 +7,26 @@ namespace XY.Component.Redis
 {
     public class RedisCache : IRedisCache
     {
-        private static string _connectionString { get; set; }
+        public string ConnectionString { get; set; }
         private static ConnectionMultiplexer _connection;
-        private static ConnectionMultiplexer Connection
+        public ConnectionMultiplexer Connection
         {
             get
             {
                 if (_connection == null || !_connection.IsConnected)
                 {
-                    _connection = ConnectionMultiplexer.Connect(_connectionString);
+                    _connection = ConnectionMultiplexer.Connect(ConnectionString);
                 }
                 return _connection;
             }
         }
 
-        private static IDatabase db = Connection.GetDatabase();
+        private IDatabase db;
+
         public RedisCache(string connectionString)
         {
-            _connectionString = connectionString;
+            this.ConnectionString = connectionString;
+            db = Connection.GetDatabase();
         }
 
 
