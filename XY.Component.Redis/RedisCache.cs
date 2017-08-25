@@ -1,10 +1,11 @@
 ﻿using StackExchange.Redis;
 using System;
 using System.Threading.Tasks;
+using XY.Component.Abstract;
 
 namespace XY.Component.Redis
 {
-    public class RedisCache
+    public class RedisCache : IRedisCache
     {
         public static ConnectionMultiplexer Connection = RedisCacheOptions.Connection;
         private static IDatabase db = Connection.GetDatabase();
